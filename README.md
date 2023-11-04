@@ -26,4 +26,4 @@ require('{your_path}\php_api\api\controllers\user.controller.php');
 ```
 
 * Finally, the endpoint is:
-`http://localhost/php_api/api/index.php`
+`http://localhost/{root_directory}/api/index.php` or `http://localhost/api/index.php`
