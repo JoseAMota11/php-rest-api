@@ -27,3 +27,15 @@ require('{your_path}\php_api\api\controllers\user.controller.php');
 
 * Finally, the endpoint is:
 `http://localhost/{root_directory}/api/index.php` or `http://localhost/api/index.php`
+
+And it should look like this:
+
+**GET** - `http://localhost/{root_directory}/api/index.php`
+
+**GET** - `http://localhost/{root_directory}/api/index.php/:id`
+
+**POST** - `http://localhost/{root_directory}/api/index.php`
+
+**PUT** - `http://localhost/{root_directory}/api/index.php/:id`
+
+**DELETE** - `http://localhost/{root_directory}/api/index.php/:id`
