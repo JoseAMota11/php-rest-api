@@ -9,10 +9,10 @@ function getAllUser(DatabaseQuery $query)
 {
   try {
     $result = $query->query("SELECT * FROM users");
-    $getAllUser = $result->fetchAll();
+    $rows = $result->fetchAll();
 
-    if (count($getAllUser) > 0) {
-      return json_encode($getAllUser);
+    if (count($rows) > 0) {
+      return json_encode($rows);
     }
 
     return json_encode(['message' => 'The database is empty']);
@@ -39,6 +39,24 @@ function setAnUser(DatabaseQuery $query)
 
     http_response_code(201);
     return json_encode(['message' => 'Data received and processed successfully']);
+  } catch (PDOException $e) {
+    http_response_code(500);
+    json_encode(['message' => $e->getMessage()]);
+  }
+}
+
+
+function deleteAnUser(DatabaseQuery $query, int $id)
+{
+  try {
+    $sql = "DELETE FROM users WHERE id = :id";
+    $result = $query->prepare($sql);
+
+    $result->bindValue(':id', $id, PDO::PARAM_INT);
+    $result->execute();
+
+    http_response_code(201);
+    return json_encode(['message' => "Row with id ($id) was deleted successfully"]);
   } catch (PDOException $e) {
     http_response_code(500);
     json_encode(['message' => $e->getMessage()]);
