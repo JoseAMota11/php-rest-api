@@ -16,6 +16,7 @@ function getAllUsers(DatabaseQuery $query)
       return json_encode($rows);
     }
 
+    http_response_code(204);
     return json_encode(['message' => 'The database is empty']);
   } catch (PDOException $e) {
     http_response_code(500);
@@ -34,9 +35,11 @@ function getOneUser(DatabaseQuery $query, int $id)
     $rows = $result->fetch();
 
     if ($rows) {
+      http_response_code(302);
       return json_encode($rows);
     }
 
+    http_response_code(404);
     return json_encode(['message' => "There is not row with id ($id)"]);
   } catch (PDOException $e) {
     http_response_code(500);

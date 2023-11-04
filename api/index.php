@@ -29,6 +29,7 @@ switch ($method) {
     break;
 
   default:
-    echo json_encode(['message' => "$method method is not supported"]);
+    http_response_code(405);
+    echo json_encode(['message' => "$method method is not allowed"]);
     break;
 }
