@@ -3,41 +3,19 @@
 require('C:\xampp\htdocs\php_api\api\models\user.model.php');
 require('C:\xampp\htdocs\php_api\libs\validations.php');
 
-$db = new DatabaseConnection("localhost", "atldb", "root");
-$query = new DatabaseQuery($db->getConnection());
-$method = $_SERVER["REQUEST_METHOD"];
 header("Content-Type:application/json");
-
-switch ($method) {
-  case 'GET':
-    echo getAllUser($query);
-    break;
-
-  case 'POST':
-    echo setAnUser($query);
-    break;
-
-  case 'PUT':
-
-    break;
-
-  case 'DELETE':
-
-    break;
-
-  default:
-    echo json_encode(['message' => "$method method is not supported"]);
-    break;
-}
 
 function getAllUser(DatabaseQuery $query)
 {
   try {
     $result = $query->query("SELECT * FROM users");
+    $getAllUser = $result->fetchAll();
 
-    if ($result) {
-      return json_encode($result->fetchAll());
+    if (count($getAllUser) > 0) {
+      return json_encode($getAllUser);
     }
+
+    return json_encode(['message' => 'The database is empty']);
   } catch (PDOException $e) {
     http_response_code(500);
     json_encode(['message' => $e->getMessage()]);
