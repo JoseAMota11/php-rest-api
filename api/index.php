@@ -12,19 +12,20 @@ switch ($method) {
     if ($id) {
       echo getOneUser($query, $id);
     } else {
-      echo getAllUser($query);
+      echo getAllUsers($query);
     }
     break;
 
   case 'POST':
-    echo setAnUser($query);
+    echo setUser($query);
     break;
 
   case 'PUT':
+    echo updateUser($query, $id);
     break;
 
   case 'DELETE':
-    echo deleteAnUser($query, $id);
+    echo deleteUser($query, $id);
     break;
 
   default:
