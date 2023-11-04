@@ -1,14 +1,15 @@
 <?php
 
-class UserModel
+class DatabaseConnection
 {
   private $pdo;
 
-  public function __construct(string $hostname, string $database, string $username, string $password)
+  public function __construct(string $hostname, string $database, string $username, string $password = "")
   {
     try {
       $this->pdo = new PDO("mysql:host=$hostname;dbname=$database", $username, $password);
       $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      $this->pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
     } catch (PDOException $e) {
       die("Conexión fallida: " . $e->getMessage());
     }
@@ -25,7 +26,7 @@ class UserModel
   }
 }
 
-class UserModelQuery
+class DatabaseQuery
 {
   private $pdo;
 
