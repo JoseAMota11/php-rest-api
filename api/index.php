@@ -9,7 +9,11 @@ $id = isset($_SERVER['PATH_INFO']) ? str_replace('/', '', $_SERVER['PATH_INFO'])
 
 switch ($method) {
   case 'GET':
-    echo getAllUser($query);
+    if ($id) {
+      echo getOneUser($query, $id);
+    } else {
+      echo getAllUser($query);
+    }
     break;
 
   case 'POST':

@@ -8,7 +8,8 @@ header("Content-Type:application/json");
 function getAllUser(DatabaseQuery $query)
 {
   try {
-    $result = $query->query("SELECT * FROM users");
+    $sql = "SELECT * FROM users";
+    $result = $query->query($sql);
     $rows = $result->fetchAll();
 
     if (count($rows) > 0) {
@@ -16,6 +17,27 @@ function getAllUser(DatabaseQuery $query)
     }
 
     return json_encode(['message' => 'The database is empty']);
+  } catch (PDOException $e) {
+    http_response_code(500);
+    json_encode(['message' => $e->getMessage()]);
+  }
+}
+
+function getOneUser(DatabaseQuery $query, int $id)
+{
+  try {
+    $sql = "SELECT * FROM users WHERE id = :id";
+    $result = $query->prepare($sql);
+    $result->bindValue(':id', $id, PDO::PARAM_INT);
+    $result->execute();
+
+    $rows = $result->fetch();
+
+    if ($rows) {
+      return json_encode($rows);
+    }
+
+    return json_encode(['message' => "There is not row with id ($id)"]);
   } catch (PDOException $e) {
     http_response_code(500);
     json_encode(['message' => $e->getMessage()]);
