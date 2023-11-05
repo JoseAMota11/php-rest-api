@@ -21,7 +21,7 @@ Your path:
 ```php
 <?php
 
-require('{your_path}\php_api\api\controllers\user.controller.php');
+require('{your_path}\api\controllers\user.controller.php');
 
 ```
 
