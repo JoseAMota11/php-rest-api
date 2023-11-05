@@ -20,7 +20,7 @@ function getAllUsers(DatabaseQuery $query)
     return json_encode(['message' => 'The database is empty']);
   } catch (PDOException $e) {
     http_response_code(500);
-    json_encode(['message' => $e->getMessage()]);
+    return json_encode(['message' => $e->getMessage()]);
   }
 }
 
@@ -43,7 +43,7 @@ function getOneUser(DatabaseQuery $query, int $id)
     return json_encode(['message' => "There is not row with id ($id)"]);
   } catch (PDOException $e) {
     http_response_code(500);
-    json_encode(['message' => $e->getMessage()]);
+    return json_encode(['message' => $e->getMessage()]);
   }
 }
 
@@ -90,7 +90,7 @@ function updateUser(DatabaseQuery $query, int $id)
     http_response_code(204);
   } catch (PDOException $e) {
     http_response_code(500);
-    json_encode(['message' => $e->getMessage()]);
+    return json_encode(['message' => $e->getMessage()]);
   }
 }
 
@@ -106,6 +106,6 @@ function deleteUser(DatabaseQuery $query, int $id)
     http_response_code(204);
   } catch (PDOException $e) {
     http_response_code(500);
-    json_encode(['message' => $e->getMessage()]);
+    return json_encode(['message' => $e->getMessage()]);
   }
 }
